@@ -16,7 +16,7 @@ class CoreArchitectureDiagram : AbstractDiagram() {
         val model = workspace.model
         var softwareSystem: SoftwareSystem? = null
 
-        model.apply {
+        model.create {
             //Model elements TODO: Replace with closures in future, provide best way to share elements in different closures
             val user = addPerson("User", "User that wants to be happy making nodes")
             val mobileSoftwareSystem = system("Mobile", "Mobile application both for IOS and Android")
@@ -26,10 +26,10 @@ class CoreArchitectureDiagram : AbstractDiagram() {
             val tcpApiSoftwareSystem = system("TCP Api", "Used to handle fast document changes with auto-saving")
             val webHooksSoftwareSystem = system("Webhooks", "Provides flexibility in actions")
             val thirdPartySoftwareSystem = system("3d party", "E.g some AWS Lambda hooks")
+            val mongoDbClusterSoftwareSystem = system("MongoDB cluster", "Provides dynamic data storage with horizontal scaling")
 
             softwareSystem = restApiSoftwareSystem
 
-            val mongoDbClusterSoftwareSystem = system("MognoDB cluster", "Provides dynamic data storage with horizontal scaling")
 
             relations {
                 arrayOf(mobileSoftwareSystem, webSoftwareSystem, thirdPartySoftwareSystem).forEach {
