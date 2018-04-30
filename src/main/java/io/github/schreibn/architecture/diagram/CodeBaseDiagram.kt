@@ -32,7 +32,7 @@ class CodeBaseDiagram : AbstractDiagram() {
             val webApplicationSoftware = model.system("Web application","React + Kotlin")
                     .apply { addTags(CodebaseTags.WEB_SYSTEM) }
             val desktopApplicationSoftware = model.system("Desktop application", "JavaFX + Kotlin")
-                    .apply { addTags(CodebaseTags.ANDROID_SYSTEM) }
+                    .apply { addTags(CodebaseTags.DESKTOP_SYSTEM) }
 
             val applications = arrayOf(androidApplicationSoftware,
                     iosApplicationSoftware,
