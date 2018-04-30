@@ -24,3 +24,6 @@ fun Model.relations(closure: Model.(Model) -> Unit) = closure(this)
 
 infix fun StaticStructureElement.uses(pair: Pair<SoftwareSystem, String>) = this.uses(pair.first, pair.second)!!
 
+
+fun Model.system(name: String, description: String): SoftwareSystem = this.addSoftwareSystem(name, description)
+fun Model.system(location: Location, name: String, description: String): SoftwareSystem = this.addSoftwareSystem(location, name, description)

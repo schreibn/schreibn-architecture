@@ -8,6 +8,13 @@ import com.structurizr.view.SystemContextView
 import com.structurizr.view.ViewSet
 import io.github.schreibn.architecture.aop.Diagram
 
+
+class ArchitectureTags{
+    companion object {
+        const val MONGO= "MONGO"
+    }
+}
+
 @Diagram("coreDiagram")
 class CoreArchitectureDiagram : AbstractDiagram() {
 
@@ -26,7 +33,7 @@ class CoreArchitectureDiagram : AbstractDiagram() {
             val tcpApiSoftwareSystem = system("TCP Api", "Used to handle fast document changes with auto-saving")
             val webHooksSoftwareSystem = system("Webhooks", "Provides flexibility in actions")
             val thirdPartySoftwareSystem = system("3d party", "E.g some AWS Lambda hooks")
-            val mongoDbClusterSoftwareSystem = system("MongoDB cluster", "Provides dynamic data storage with horizontal scaling")
+            val mongoDbClusterSoftwareSystem = system("MongoDB cluster", "Provides dynamic data storage with horizontal scaling").apply { addTags(ArchitectureTags.MONGO) }
 
             softwareSystem = restApiSoftwareSystem
 
@@ -37,6 +44,7 @@ class CoreArchitectureDiagram : AbstractDiagram() {
                     it.uses(loadBalancerSoftwareSystem, "Works")
 
                 }
+
 
                 loadBalancerSoftwareSystem uses (restApiSoftwareSystem to "1..*")
                 loadBalancerSoftwareSystem uses (tcpApiSoftwareSystem to "1..*")
@@ -54,12 +62,10 @@ class CoreArchitectureDiagram : AbstractDiagram() {
         contextView.addAllPeople()
 
         val styles = views.configuration.styles
-        styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#1168bd").color("#ffffff")
-        styles.addElementStyle(Tags.PERSON).background("#08427b").color("#ffffff").shape(Shape.Person)
-
+        styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#1168bd")
+        styles.addElementStyle(ArchitectureTags.MONGO).color("#000000").background("#008000")
+        styles.addElementStyle(Tags.PERSON).background("#08427b").color("#000000").shape(Shape.Person)
         return workspace
     }
 }
 
-fun Model.system(name: String, description: String): SoftwareSystem = this.addSoftwareSystem(name, description)
-fun Model.system(location: Location, name: String, description: String): SoftwareSystem = this.addSoftwareSystem(location, name, description)
